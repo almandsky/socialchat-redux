@@ -50,6 +50,9 @@ plan.remote(function(remote) {
   remote.log('Install dependencies');
   remote.sudo('npm --production --prefix ~/' + tmpDir + ' install ~/' + tmpDir, {user: username});
 
+  remote.log('Webpack build');
+  remote.exec('cd ~/' + tmpDir + '; /usr/bin/webpack --config webpack.config.js');
+
   remote.log('Reload application');
   remote.sudo('ln -snf ~/' + tmpDir + ' ~/'+appName, {user: username});
   remote.exec('sudo restart node-app');
